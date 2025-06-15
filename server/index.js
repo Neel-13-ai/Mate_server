@@ -5,7 +5,7 @@ require("dotenv").config();
 const app = express();
 
 const authRoutes = require("./routes/authRoutes");
-// const adminRoutes = require("./routes/adminRoutes");
+const adminRoutes = require("./routes/adminRoute");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -25,7 +25,7 @@ app.use(
 const port = process.env.PORT || 5000;
 
 app.use("/api/auth", authRoutes);
-// app.use("/api/admin", adminRoutes);
+app.use("/api/admin", adminRoutes);
 
 app.listen(port, () => {
   console.log("server is running on : http://localhost:5000");
