@@ -1,0 +1,110 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+   output   = "../server/prismaClient"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model SUPER_ADMIN {
+  id       String @id @default(uuid())
+  name     String
+  email    String @unique
+  password String
+  role     Role   @default(SUPER_ADMIN)
+
+  admins      ADMIN[]
+  assignments Assignment[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model ADMIN {
+  id       String @id @default(uuid())
+  name     String
+  email    String @unique
+  password String
+  role     Role   @default(ADMIN)
+  branch   BRANCH
+
+  superAdminId String?
+  superAdmin   SUPER_ADMIN? @relation(fields: [superAdminId], references: [id])
+
+  assignments Assignment[]
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+}
+
+model User {
+  id               String @id @default(uuid())
+  name             String
+  enrollmentNumber String @unique
+  email            String @unique
+  password         String
+  role             Role   @default(STUDENT)
+  branch           BRANCH
+  year             Int
+  sem              Int
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Assignment {
+  id          String @id @default(uuid())
+  title       String
+  subject     String
+  description String
+  branch      String
+  year        Int
+
+  sem      Int
+  filePath String
+  dueDate  DateTime?
+
+  adminId      String?
+  superAdminId String?
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+
+  admin      ADMIN?       @relation(fields: [adminId], references: [id])
+  superAdmin SUPER_ADMIN? @relation(fields: [superAdminId], references: [id])
+}
+
+model Otp {
+  id      Int    @id @default(autoincrement())
+  userId  String
+  otpcode String
+  status  String @default("pending")
+
+  created_at DateTime @default(now())
+  expires_at DateTime
+}
+
+enum Role {
+  SUPER_ADMIN
+  ADMIN
+  STUDENT
+}
+
+enum BRANCH {
+  COMPUTER_SCIENCE
+  INFORMATION_TECHNOLOGY
+  ELECTRICAL
+  MECHANICAL
+  CIVIL
+  CHEMICAL
+}
