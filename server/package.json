@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "postinstall": "prisma generate",
+    "postinstall": "prisma generate --schema=../prisma/schema.prisma",
     "start": "node index.js"
   },
   "keywords": [],

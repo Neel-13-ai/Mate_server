@@ -3,6 +3,9 @@
   "main": "index.js",
   "types": "index.d.ts",
   "browser": "index-browser.js",
+  "prisma": {
+    "schema": "prisma/schema.prisma"
+  },
   "exports": {
     "./client": {
       "require": {
