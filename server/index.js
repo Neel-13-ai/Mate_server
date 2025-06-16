@@ -16,7 +16,7 @@ app.get("/", (req, res) => {
 
 app.use(
   cors({
-    origin: ["http://localhost:5173","https://mate-client.vercel.app/"],
+    origin: ["http://localhost:5173","https://mate-client.vercel.app"],
     methods: ["GET", "POST", "DELETE", "PUT", "PATCH"],
     credentials: true,
   })
