@@ -1,8 +1,8 @@
-const { PrismaClient } = require('../prismaClient/client');
 
 const jwt = require('jsonwebtoken');
 const bcrypt = require("bcrypt");
 const nodemailer = require("nodemailer");
+const { PrismaClient } = require('../prismaClient');
 
 const prisma = new PrismaClient();
 
