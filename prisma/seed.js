@@ -1,14 +1,15 @@
-const { PrismaClient,Role } = require("@prisma/client");
+
+const {PrismaClient,Role} =  require('@prisma/client')
 const prisma = new PrismaClient();
 
-const bcrypt = require("bcrypt");
+const bcrypt = require('bcryptjs');
 
 async function seedSuperAdmin() {
   try {
     const spAdEmail = "pneel2948@gmail.com";
     const spAdPass = "123456";
 
-    const existSpAdmin = await prisma.sUPER_ADMIN.findUnique({
+    const existSpAdmin = await prisma.SUPER_ADMIN.findUnique({
       where: {
         email: spAdEmail,
       },
@@ -21,7 +22,7 @@ async function seedSuperAdmin() {
 
     const hashPassword = await bcrypt.hash(spAdPass, 10);
 
-    const spAdmin = await prisma.sUPER_ADMIN.create({
+    const spAdmin = await prisma.SUPER_ADMIN.create({
       data: {
         name: "SUPER_ADMIN",
         email: spAdEmail,

@@ -4,7 +4,8 @@
   "types": "index.d.ts",
   "browser": "index-browser.js",
   "prisma": {
-    "schema": "prisma/schema.prisma"
+    "schema": "prisma/schema.prisma",
+    "seed": "node prisma/seed.js"
   },
   "exports": {
     "./client": {
@@ -150,6 +151,7 @@
     "prisma": "^6.9.0"
   },
   "dependencies": {
-    "@prisma/client": "^6.9.0"
+    "@prisma/client": "^6.9.0",
+    "bcryptjs": "^3.0.2"
   }
 }
