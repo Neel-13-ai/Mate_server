@@ -1,7 +1,7 @@
 
 // const {PrismaClient} = require('@prisma/client')
 const jwt = require("jsonwebtoken");
-const { PrismaClient } = require("../prismaClient");
+const { PrismaClient } = require("@prisma/client");
 
 const prisma = new PrismaClient();
 
@@ -20,6 +20,10 @@ const verifyToken = async (req, res, next) => {
 
   const jwtToken = token.replace("Bearer", "").trim();
   console.log("token from auth middleware", jwtToken);
+
+  if (jwtToken === "null" || jwtToken === "undefined") {
+    return res.status(401).json({ message: "Invalid or expired session. Please login again." });
+  }
 
   try {
     const decoded = jwt.verify(jwtToken, process.env.SECRET_KEY);
